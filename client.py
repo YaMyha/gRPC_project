@@ -1,0 +1,14 @@
+import grpc
+import greeter_pb2
+import greeter_pb2_grpc
+
+def run():
+    # Подключаемся к серверу
+    with grpc.insecure_channel("localhost:50051") as channel:
+        stub = greeter_pb2_grpc.GreeterStub(channel)
+        # Отправляем запрос
+        response = stub.SayHello(greeter_pb2.HelloRequest(name="Аня"))
+    print("Ответ от сервера:", response.message)
+
+if __name__ == "__main__":
+    run()
